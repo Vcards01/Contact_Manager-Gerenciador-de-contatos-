@@ -1,15 +1,15 @@
 /*Autoria: Victor Hugo Cardoso - Data: Maio de 2018. Este programa gerencia uma agenda de contatos,onde o usuario
 pode inserir,pesquisar,listar e modificar dados de um contato, alem de poder selecionar os aniversariantes de um 
-determinado mês.Para cada contato sera armazenado o nome completo, o telefone, o e-mail e a data de nascimento 
-(dia, mês e ano).Todos os dados serão armazenados em estruturas alocadas dinamicamente e sempre que o programa 
-for encerrado,os contatos serão armazenados em um arquivo binário. */
+determinado mÃªs.Para cada contato sera armazenado o nome completo, o telefone, o e-mail e a data de nascimento 
+(dia, mÃªs e ano).Todos os dados serÃ£o armazenados em estruturas alocadas dinamicamente e sempre que o programa 
+for encerrado,os contatos serÃ£o armazenados em um arquivo binÃ¡rio. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 #include <time.h>
 
-//Definição dos dados que cada contato deve possuir.
+//DefiniÃ§Ã£o dos dados que cada contato deve possuir.
 struct data
 	{
 		int dia;
@@ -24,7 +24,7 @@ struct Contatos
 	data datanasc;
 };
 
-// Protótipo das Funções
+// ProtÃ³tipo das FunÃ§Ãµes
 void menu(int &op);
 void inserirContato(Contatos *p,int &qtdd,int vet);
 void pesquisarContato(Contatos *p, int qtdd);
@@ -37,18 +37,18 @@ void aloca(Contatos **agenda, int vet);
 void realoca(Contatos **agenda,int vet);
 void liberar(Contatos *agenda);
 
-//Função Principal.
+//FunÃ§Ã£o Principal.
 main()
 {
 	setlocale(LC_ALL,"Portuguese");
 	Contatos *agenda;//Ponteiro para struct de contatos, que sera o vetor alocado dinamicamente.
 	int vet; //Tamanho do vetor.
 	int qtdd;//Numero de contatos cadastrados. 
-	int opcao=-1;//Controla as opções do menu.
+	int opcao=-1;//Controla as opÃ§Ãµes do menu.
 	FILE *fp;
 	//Criando o arquivo binario. 
   	fp = fopen("agenda.dat","rb");
-  	//Arquivo não foi encontrado,e será criado,isso acontecerá na primeira vez q o programa for aberto.
+  	//Arquivo nÃ£o foi encontrado,e serÃ¡ criado,isso acontecerÃ¡ na primeira vez q o programa for aberto.
 	if(fp==NULL)
 	{
 		qtdd = 0;//Quantidade incial de contatos .
@@ -58,7 +58,7 @@ main()
     //Arquio encontrado
     else
 	{
-	 	//Lendo a quantidade de contatos já gravados no arquivo.
+	 	//Lendo a quantidade de contatos jÃ¡ gravados no arquivo.
     	fread(&qtdd, sizeof(int), 1, fp);
     	/*Definindo o tamanho do vetor.Ele tem q ser maior que o numero de contatos ja gravados,
 		para que assim novos contatos possam ser gravados.*/
@@ -137,9 +137,9 @@ main()
 	//libera a memoria alocada.
 	liberar(agenda);
 }
-// Declaração das funções
+// DeclaraÃ§Ã£o das funÃ§Ãµes
 
-//Função que exibe o menu na tela.
+//FunÃ§Ã£o que exibe o menu na tela.
 void menu(int &op)
 {
 	printf("\n============MENU============");
@@ -152,7 +152,7 @@ void menu(int &op)
 	scanf("%d",&op);
 	
 }
-//Função que faz o cadastro de um novo contato na agenda.
+//FunÃ§Ã£o que faz o cadastro de um novo contato na agenda.
 void inserirContato(Contatos *p,int &qtdd,int vet)
 {
 	 
@@ -169,7 +169,7 @@ void inserirContato(Contatos *p,int &qtdd,int vet)
 	printf("\nData de Nascimento:");
 	printf("\n\tDia:");
 	scanf("%d",&p[qtdd].datanasc.dia);
-	while(p[qtdd].datanasc.dia>31)//Evita que o usuario digite mais dias do que tem um mês.
+	while(p[qtdd].datanasc.dia>31)//Evita que o usuario digite mais dias do que tem um mÃªs.
 	{
 		printf("\n\tDia invalido,tente novamente:");
 		printf("\n\tDia:");
@@ -194,12 +194,12 @@ void inserirContato(Contatos *p,int &qtdd,int vet)
 	qtdd++;
 }
 
-//Função que faz a pesquisa de um contato utilizando seu nome.
+//FunÃ§Ã£o que faz a pesquisa de um contato utilizando seu nome.
 void pesquisarContato(Contatos *p, int qtdd)
 {
 	printf("============Pesquisa de contato============");
 	char nome[50];
-	int flag=0;//Flag de controle.Se o contato existe = True.Se não = False.
+	int flag=0;//Flag de controle.Se o contato existe = True.Se nÃ£o = False.
 	printf("\n\nDigite o nome do contato:");
 	fflush(stdin);
 	gets(nome);
@@ -207,7 +207,7 @@ void pesquisarContato(Contatos *p, int qtdd)
 	{
 		if(strcmp(nome,p[i].nome)==0)
 		{
-			int id=idade(p[i].datanasc.dia,p[i].datanasc.mes,p[i].datanasc.ano);//Recebe da função a idade do contato.
+			int id=idade(p[i].datanasc.dia,p[i].datanasc.mes,p[i].datanasc.ano);//Recebe da funÃ§Ã£o a idade do contato.
 			printf("\nNome:%s   | Telefone:%s   | Email:%s | Idade:%d\n\n",p[i].nome,p[i].telefone,p[i].email,id);
 			system("pause");
 			flag=1;
@@ -215,13 +215,13 @@ void pesquisarContato(Contatos *p, int qtdd)
 	}
 	if(flag==0)
 	{
-		printf("\nO contato solicitado não se encontra na agenda.\n");
+		printf("\nO contato solicitado nÃ£o se encontra na agenda.\n");
 		printf("\nVerifique se o nome do contato foi escrito corretamente, e tente novamente.\n\n");
 		system("pause");
 	}
 }
   
-//Função para exbir todos os contatos registrados.
+//FunÃ§Ã£o para exbir todos os contatos registrados.
 void exbirContatos(Contatos *p,int qtdd)
 {
 	printf("============Exibir Contatos============");
@@ -233,7 +233,7 @@ void exbirContatos(Contatos *p,int qtdd)
 	{
 		for(int i=0;i<qtdd;i++)
 	{
-		int id=idade(p[i].datanasc.dia,p[i].datanasc.mes,p[i].datanasc.ano);//Recebe da função a idade do contato.
+		int id=idade(p[i].datanasc.dia,p[i].datanasc.mes,p[i].datanasc.ano);//Recebe da funÃ§Ã£o a idade do contato.
 		printf("\n\n------------------------Contato %d------------------------",i+1);
 		printf("\n\nNome:%s   | Telefone:%s   | Email:%s | Idade:%d",p[i].nome,p[i].telefone,p[i].email,id);
 	}
@@ -244,13 +244,13 @@ void exbirContatos(Contatos *p,int qtdd)
    
 }
 
-//Função que altera os dados do contato selecionado pelo nome.
+//FunÃ§Ã£o que altera os dados do contato selecionado pelo nome.
 void alterarDados(Contatos *p, int qtdd)
 {
 	printf("============Alterar Dados============");
 	char nome[50];
-	int menu;//Controla as opções do menu interno da função.
-	int flag=0;//Flag de controle.Se o contato existe = True.Se não = False.
+	int menu;//Controla as opÃ§Ãµes do menu interno da funÃ§Ã£o.
+	int flag=0;//Flag de controle.Se o contato existe = True.Se nÃ£o = False.
 	printf("\n\nDigite o nome do contato:");
 	fflush(stdin);
 	gets(nome);
@@ -290,7 +290,7 @@ void alterarDados(Contatos *p, int qtdd)
 				printf("\nData de Nascimento:");
 				printf("\n\tDia:");
 				scanf("%d",&p[qtdd].datanasc.dia);
-				while(p[qtdd].datanasc.dia>31)//Evita que o usuario digite mais dias do que tem um mês.
+				while(p[qtdd].datanasc.dia>31)//Evita que o usuario digite mais dias do que tem um mÃªs.
 				{
 					printf("\n\tDia invalido,tente novamente:");
 					printf("\n\tDia:");
@@ -324,33 +324,33 @@ void alterarDados(Contatos *p, int qtdd)
 	}
 	if(flag==0)
 	{
-		printf("\nO contato solicitado não se encontra na agenda\n\n");
+		printf("\nO contato solicitado nÃ£o se encontra na agenda\n\n");
 		system("pause");
 	}
 }
-//Função que printa os aniversariantes no mes em que o usuario escolher.
+//FunÃ§Ã£o que printa os aniversariantes no mes em que o usuario escolher.
 void aniversariantes(Contatos *p,int qtdd)
 {
-	printf("\n============Aniversariantes do mês============");
-	int mes= meses();//Recebe da função o numero do mês,levando varias possibilidades de digitação em conta.
-	int flag=0;//Flag de controle.Se o contato existe = True.Se não = False.
+	printf("\n============Aniversariantes do mÃªs============");
+	int mes= meses();//Recebe da funÃ§Ã£o o numero do mÃªs,levando varias possibilidades de digitaÃ§Ã£o em conta.
+	int flag=0;//Flag de controle.Se o contato existe = True.Se nÃ£o = False.
 	for(int i=0;i<qtdd;i++)
 	{
 		if(mes==p[i].datanasc.mes)
 		{
 			flag=1;
-			printf("\n\n------------------------Parabéns!------------------------",i+1);
+			printf("\n\n------------------------ParabÃ©ns!------------------------",i+1);
 			printf("\nContato Aniversariante :%s\n\n",p[i].nome);
 		}
 		
 	}  
 	if(flag==0)
 	{
-		printf("\nSem aniversariantes esse mês\n\n");
+		printf("\nSem aniversariantes esse mÃªs\n\n");
 	} 
 	  system("pause"); 	
 }
-//Função que faz o calculo da idade dos contatos.
+//FunÃ§Ã£o que faz o calculo da idade dos contatos.
 int idade(int dia,int mes,int ano)
 {
 	int idade;
@@ -381,11 +381,11 @@ int idade(int dia,int mes,int ano)
 		return idade;
 	}
 }
-//Função que determina o mes, de acordo com o que o usuario digitar, levando varias possibilidades em consideração.
+//FunÃ§Ã£o que determina o mes, de acordo com o que o usuario digitar, levando varias possibilidades em consideraÃ§Ã£o.
 int meses()
 {
 	char mes[10];
-	printf("\n\nDigite um mês:");
+	printf("\n\nDigite um mÃªs:");
 	fflush(stdin);
 	gets(mes);
 	if((strcmp(mes,"1")==0)||(strcmp(mes,"01")==0)||(strcmp(mes,"Janeiro")==0)||(strcmp(mes,"janeiro")==0))
@@ -396,7 +396,7 @@ int meses()
 	{
 		return 2;
 	}
-	if((strcmp(mes,"3")==0)||(strcmp(mes,"03")==0)||(strcmp(mes,"Março")==0)||(strcmp(mes,"marco")==0))
+	if((strcmp(mes,"3")==0)||(strcmp(mes,"03")==0)||(strcmp(mes,"MarÃ§o")==0)||(strcmp(mes,"marco")==0))
 	{
 		return 3;
 	}
@@ -437,7 +437,7 @@ int meses()
 		return 12;
 	}
 }
-//Função que faz a alocação de memoria do vetor dinamicamente.
+//FunÃ§Ã£o que faz a alocaÃ§Ã£o de memoria do vetor dinamicamente.
 void aloca(Contatos **agenda, int vet)
 {
 	*agenda = (Contatos*) malloc (vet*sizeof (Contatos));
@@ -447,12 +447,12 @@ void aloca(Contatos **agenda, int vet)
 		exit (1);
 	}
 }
-//Função q realoca a memoria caso o vetor chegue no limite maximo.
+//FunÃ§Ã£o q realoca a memoria caso o vetor chegue no limite maximo.
 void realoca(Contatos **agenda,int vet)
 {
 	 *agenda = (Contatos*)realloc(*agenda,vet*sizeof(Contatos));
 }
-//Função que libera a memoria alocada, apos o uso.
+//FunÃ§Ã£o que libera a memoria alocada, apos o uso.
 void liberar(Contatos *agenda)
 {
 	free(agenda);
